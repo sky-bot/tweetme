@@ -5,3 +5,7 @@ from django.http import HttpRequest, HttpResponse
 
 def home_view(request, *args, **kwargs):
     return HttpResponse("<h1>Hello World</h1>")
+
+def tweet_detail_view(request, tweet_id, *args, **kwargs):
+    print(args, kwargs)
+    return HttpResponse("<h1>Hello World</h1>")
