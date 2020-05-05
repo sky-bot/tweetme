@@ -6,4 +6,45 @@ Tweeter
 
 {% block content %}
 Welcome to tweet me
+
+<div id="tweets">
+    Loading...
+</div>
+
+
+<script>
+    const tweetElement = document.getElementById('tweets')
+   
+
+    const xhr = new XMLHttpRequest()
+    const method = 'GET'
+    const url = '/tweets'
+    const responseType = "json"
+
+    function formatTweetElement(tweet){
+        let formattedTweet= "<div class='mb-4 tweet' id='tweet-" + tweet.id + "'>" + "<p>" + tweet.content + "</p>" + "</div>"
+        return formattedTweet
+    }
+
+    xhr.responseType = responseType
+    xhr.open(method, url)
+    xhr.onload = function() {
+        const serverResponse = xhr.response
+        const listedItems = serverResponse.response
+
+        let i;
+        let finalStr = ""
+
+        for (i=0;i<listedItems.length;i++)
+        {
+            let temp = formatTweetElement(listedItems[i])
+            finalStr += temp
+        }
+        tweetElement.innerHTML = finalStr
+        console.log(listedItems)
+    }
+    xhr.send()
+
+</script>
+
 {% endblock content %}

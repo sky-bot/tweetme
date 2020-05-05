@@ -28,6 +28,7 @@ def tweet_list_view(request, *args, **kwargs):
     all_tweets = Tweets.objects.all()
     tweet_list = [{'id': row.tweet_id, "content": row.content} for row in all_tweets]
     data= {
+        "isUser": False,
         "response" : tweet_list
     }
     return JsonResponse(data)
