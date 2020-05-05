@@ -14,6 +14,7 @@ def tweet_detail_view(request, tweet_id, *args, **kwargs):
         # 'content': obj.content,
         # 'image': obj.image
     }
+    status = 200
     try :
         obj = Tweets.objects.get(tweet_id=tweet_id)
         data['content'] = obj.content
@@ -22,3 +23,11 @@ def tweet_detail_view(request, tweet_id, *args, **kwargs):
         status = 404
     
     return JsonResponse(data, status=status)    
+
+def tweet_list_view(request, *args, **kwargs):
+    all_tweets = Tweets.objects.all()
+    tweet_list = [{'id': row.tweet_id, "content": row.content} for row in all_tweets]
+    data= {
+        "response" : tweet_list
+    }
+    return JsonResponse(data)
